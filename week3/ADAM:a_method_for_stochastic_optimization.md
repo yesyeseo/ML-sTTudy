@@ -6,8 +6,7 @@
 
 ## Momentum
 
-![스크린샷 2022-03-17 오후 4.26.51.png](ADAM%20A%20Met%207aae1/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-03-17_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_4.26.51.png)
-
+![image](https://user-images.githubusercontent.com/61305409/158773676-ef9ff512-1fd1-4357-ad8d-f4dd57506f2b.png)
 momentum은 gradient descent 기반의 optimization algorithm이다. 위 식은 momentum의 식이다. v는 일종의 가속도의 개념으로 이해할 수 있다. v로 인해 weight 파라미터는 가중치가 감소하던 방향으로 더 감소하거나, 증가하던 방향으로 더 증가하게 된다. v값은 0으로 초기화된다.
 
 참고로 moment와 momentum은 다른 개념이다.
@@ -16,7 +15,7 @@ momentum은 gradient descent 기반의 optimization algorithm이다. 위 식은 
 
 학습률을 조절하여 최적의 파라미터를 찾는 optimization algorithm이다. 학습률 감소(learning rate decay)를 통해 학습률을 조절하게 된다.
 
-![스크린샷 2022-03-17 오후 4.30.38.png](ADAM%20A%20Met%207aae1/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-03-17_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_4.30.38.png)
+![image](https://user-images.githubusercontent.com/61305409/158773744-c3c4265c-adf1-4340-9cfa-8581ba6abc7b.png)
 
 학습률 감소는 말그대로 학습을 진행하면서 학습률을 점차 줄여가는 방법이다. 학습률은 너무 작으면 학습시간이 오래걸리고, 너무 크면 학습이 제대로 이루어지지 않기 때문에 loss 값이 큰 처음에만 학습률을 크게하여 빠르게 최적의 파라미터에 가까워지도록 학습하고, 점점 학습률을 줄여 천천히 최적의 파라미터 값에 가까워지도록 학습한다. 
 
@@ -26,7 +25,7 @@ momentum은 gradient descent 기반의 optimization algorithm이다. 위 식은 
 
 AdaGrad는 과거의 기울기를 제곱하여 계속 더하면서 학습하기 때문에 학습을 진행할수록 갱신되는 정도가 약해진다. (위의 식에서 h값이 계속 증가하니까 학습률에 곱해지는 값인 1/sqrt(h)값은 점점 감소한다.) 실제로 무한히 계속 학습한다면 갱신량은 0에 수렴하게 되어 전혀 갱신되지 않게 된다. RMSProp은 이 문제를 개선하기 위해 고안된 최적화 알고리즘이다.
 
-![t=i 일때의 RMSProp의 update 수식](ADAM%20A%20Met%207aae1/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-03-17_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_4.53.48.png)
+![image](https://user-images.githubusercontent.com/61305409/158773772-4f6f6bd4-c73f-47fa-91b3-728136fbe7dd.png)
 
 t=i 일때의 RMSProp의 update 수식
 
@@ -38,7 +37,7 @@ Adam은 gradients의 1차와 2차 moment의 추정치로부터 다른 파라미�
 
 # Algorithm
 
-![Untitled](ADAM%20A%20Met%207aae1/Untitled.png)
+![image](https://user-images.githubusercontent.com/61305409/158773861-cbba63ab-582e-4f21-a1f4-ed146afd6d7b.png)
 
 f(theta)은 noisy objective function(dropout과 같은 data subsampling을 적용한 loss function)을 말한다. 
 
