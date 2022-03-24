@@ -37,7 +37,7 @@ input이 whitened(정규분포 모양)일때 training 수렴 속도가 빠르다
 
 layer의 input과 output의 feature에 대해 같이 whitening하는 것이 아니라 각 scalar feature를 각각 평균 값을 0으로, 분산 값을 1로 만들어 독립적으로 normalize한다. layer가 d차원의 input x를 가진다고 하면 각 타원에서의 normalize식은 다음과 같이 나타낼 수 있다.
 
-![스크린샷 2022-03-24 오후 3.30.45.png](He,%20batch%20%20a7a20/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-03-24_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_3.30.45.png)
+![image](https://user-images.githubusercontent.com/61305409/159866162-71923492-ab83-44d3-8dcf-78054b9ab1eb.png)
 
 이때 기댓값과 분산은 training data에대한 값이다.(LeCun et al(1998b)에 따르면 이러한 normalization은 feature들이 서로 상관 관계(두 변수가 선형적인 관계를 가지고 있음)에 있더라도 수렴 속도를 빠르게 한다는 것이 증명되었다)
 
@@ -58,8 +58,7 @@ $$
 이로써 gradient backpropagation에서 완전한 normalization의 사용을 보여줄 수 있다. 단, mini-batch는 공분산보다는 각 차원의 분산을 사용한다.(공분산을 사용하게 되면 mini-batch 크기가 whitened될 activation보다 작을 가능성이 있어서 singular 분산 행렬의 결과를 내놓을 수 있기 때문에 regularization을 해줘야한다.)
 
 모든 차원에서의 연산은 동일하므로 차원에 대한 정보를 생략하면 batch normalization transform의 알고리즘은 다음과 같다.
-
-![스크린샷 2022-03-24 오후 4.00.59.png](He,%20batch%20%20a7a20/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-03-24_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_4.00.59.png)
+![image](https://user-images.githubusercontent.com/61305409/159866199-e090e239-0fc6-4a98-a038-54dedd794314.png)
 
 ε은 mini-batch의 분산을 numerical 안정화를 위해 조절하기 위해 더해진 상수값이다.
 
@@ -67,12 +66,11 @@ BN transform에서 γ값과 β값은 같은 training example과 mini-batch내의
 
 각 mini-batch가 같은 분산으로부터 추출되고 엡실론 값을 무시한다고 하면 어느 $x̂$에 대해서 기댓값은 0, 분산값은 1이 된다. 각 평준화된 activation인 $x̂^{(k)}$는 선형 transform인 
 
-![스크린샷 2022-03-24 오후 4.14.31.png](He,%20batch%20%20a7a20/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-03-24_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_4.14.31.png)
+![image](https://user-images.githubusercontent.com/61305409/159866242-8c075a6f-f9eb-41f9-9b29-cfa47f69053b.png)
 
 의 sub-network으로의 input으로 볼 수 있고 뒤이어 다른 processing인 original network까지 끝낼 수 있다. 이 sub-network의 input들의 평균과 분산은 모두 수정되고 이러한 평준화된 activation이 training과정에서 공분산값이 변하더라도 평준화된 input을 도입한 것은 sub-network, 결과적으로는 network 전체의 training속도를 가속화한다.
 
 training하는 동안 이 transformation을 통해 얻은 loss값의 gradient를 backpropagation 해야하고 BN transform의 파라미터에 대한 gradient값을 계산해야 한다. 이는 아래와 같이 연쇄법칙을 사용하여 계산해낼 수 있다.
-
-![스크린샷 2022-03-24 오후 4.19.05.png](He,%20batch%20%20a7a20/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-03-24_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_4.19.05.png)
+![image](https://user-images.githubusercontent.com/61305409/159866273-56bdeac6-58ec-4351-89e3-956e1a494e5b.png)
 
 따라서 BN transform은 평준화한 activation을 network에 도입한 미분가능한 transformation이 된다. 이것은 모델을 training할 때 layer들이 계속해서 input 분산을 적은 internal covariate shift를 가지는 상태에서 학습할 수 있다는 것을 보장한다. 게다가 learned affine transform은 이러한 평준화된 activation이 BN transform이 identity transformation으로 나타낼 수 있고 network capacity를 유지할 수 있도록 해준다.
